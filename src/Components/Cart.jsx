@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 // import { FaDatabase } from 'react-icons/fa6';
 import { IoMdStar } from "react-icons/io";
-import { Link } from 'react-router-dom';
 
 const Cart = () => {
     const [resturent, setResturent] = useState([]);
@@ -11,12 +10,10 @@ const Cart = () => {
     useEffect(() => {
 
         let fetchResturentData = async () => {
-            let response = await fetch("http://localhost:3000/api/all-products");
-            let json = await response.json();
+            let res = await fetch("http://localhost:3000/api/menus");
+            let json = await res.json();
 
-            let menus = json.filter(item => item.type === "menu");
-
-            setResturent(menus);
+            setResturent(json);
         }
 
         fetchResturentData();
@@ -28,22 +25,18 @@ const Cart = () => {
 
         <>
 
-            <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full'>
 
-                <div className='flex item'>
-                    <h1 className='text-[25px] font-semibold'>Restaurants with online food delivery in Kolkata :</h1>
-                </div>
+                    <div className="w-full mt-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                            {resturent.map((data, index) => (
+                                <div 
 
-                <div className="w-full mt-10">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                        {resturent.map((data, index) => (
-                            <Link to={`/resturentMenuDetails/${data.id}`} key={index}>
-                                <div
-                                    className="bg-white rounded-2xl shadow-md hover:scale-97 transition-transform duration-300 ease-in-out
+                                    key={index}
+                                    className="  bg-white rounded-2xl shadow-md hover:scale-97 transition-transform duration-300 ease-in-out
                                                  cursor-pointer overflow-hidden border border-gray-200"
                                 >
                                     <div className="relative w-full h-56 group overflow-hidden rounded-t-2xl ">
-                                        {/* {console.log(data.id)} */}
                                         <img
                                             src={`http://localhost:3000${data.img}`}
                                             alt={data.name}
@@ -51,7 +44,7 @@ const Cart = () => {
                                         />
 
                                         {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 rounded-t-2xl"></div> */}
-
+                                        
                                         <h1 className="absolute bottom-3 left-3 text-white text-sm font-bold 
                                                         bg-black/50 px-2 py-1 rounded">
                                             ₹ {data.price}
@@ -60,7 +53,7 @@ const Cart = () => {
 
                                     <div className="px-4 py-3 flex flex-col">
                                         <p className="text-lg font-semibold text-gray-800 capitalize ">
-                                            {data.name}
+                                        {data.name}
                                         </p>
 
                                         <p className="flex text-sm text-black/50 mt-1 ">
@@ -71,13 +64,12 @@ const Cart = () => {
                                         <h3 className="font-medium mt-2 text-black">{data.place}</h3>
                                     </div>
                                 </div>
-                            </Link>
-                        ))}
+                            ))}
+                        </div>
                     </div>
+
+                    
                 </div>
-
-
-            </div>
 
         </>
     )

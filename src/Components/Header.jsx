@@ -12,7 +12,7 @@ import { IoCartSharp } from "react-icons/io5";
 
 import { CiSearch } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa6";
-import { Link, Outlet } from 'react-router-dom';
+// import { Link, Outlet } from 'react-router-dom';
 
 const Header = () => {
     let [open, setOpen] = useState(false);
@@ -93,7 +93,7 @@ return (
 
             {/* Logo & Other */}
             <div className=' flex items-center w-[90%] h-[70%]  mt-3 my-auto mx-auto '>
-               <Link to={"/"}> <img className='rounded-full h-[55px] cursor-pointer ' src="logo.png.webp" alt="" /></Link>
+                <img className='rounded-full h-[55px] cursor-pointer ' src="logo.png.webp" alt="" />
 
                 <div onClick={() => setOpen(true)} className='flex items-center  hover:text-[#ff5200] transition-all duration-300'>
                     <div className=' ml-5 border-b-[2px] cursor-pointer font-medium '>
@@ -175,7 +175,7 @@ return (
 
 
 
-        <Outlet />
+
     </>
 )
 }
